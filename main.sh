@@ -13,7 +13,7 @@ cd ./xwayland
 apt-get build-dep ./ -y
 
 # Build package
-dh_make --createorig
+dh_make --createorig -y -l -p xwayland_23.0.99.901
 dpkg-buildpackage
 
 # Move the debs to output
