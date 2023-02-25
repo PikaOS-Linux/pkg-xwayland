@@ -1,3 +1,9 @@
+xwayland (2:23.0.99.901-99pika3) kinetic; urgency=medium
+
+  * Fix conflicts
+
+ -- Ward Nakchbandi <hotrod.master@hotmail.com>  Thu, 04 Oct 2022 17:50:00 +0300
+
 xwayland (2:23.0.99.901-99pika2) kinetic; urgency=medium
 
   * New upstream update
