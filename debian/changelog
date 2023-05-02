@@ -1,3 +1,9 @@
+xwayland (2:23.1.1-99pika1.lunar) lunar; urgency=medium
+
+  * Update to lunar
+
+ -- Ward Nakchbandi <hotrod.master@hotmail.com>  Thu, 04 Oct 2022 17:50:00 +0300
+
 xwayland (2:23.0.99.901-99pika4) kinetic; urgency=medium
 
   * Rebuild with another version
