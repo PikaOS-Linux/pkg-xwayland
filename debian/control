@@ -36,6 +36,7 @@ Depends:
  xserver-common,
  ${shlibs:Depends},
  ${misc:Depends},
+ libnvidia-egl-wayland1,
 Description: X server for running X clients under Wayland
  This package provides an X server running on top of wayland, using wayland
  input devices for input and forwarding either the root window or individual
