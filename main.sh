@@ -4,6 +4,7 @@ cp -rvf ./debian ./xwayland/
 cd ./xwayland
 
 # Get build deps
+apt upgrade -y
 apt-get build-dep ./ -y
 
 # Build package
