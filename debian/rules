@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-
+export DEB_CFLAGS_MAINT_APPEND = -Wno-error
 include /usr/share/dpkg/pkg-info.mk
 
 SUPPORT = https://www.debian.org/support
