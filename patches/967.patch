@@ -1607,7 +1607,7 @@ index 4f94f16e44..2eb57abfff 100644
 GitLab
 
 
-From 02621661f676debe73956c0a8fc0d914664711a4 Mon Sep 17 00:00:00 2001
+From 58ecd7b607825be028d49f5ec273a0718ec0868e Mon Sep 17 00:00:00 2001
 From: Erik Kurzinger <ekurzinger@nvidia.com>
 Date: Tue, 15 Aug 2023 15:32:47 -0700
 Subject: [PATCH 5/5] xwayland: add support for wp_linux_drm_syncobj_v1
@@ -1630,7 +1630,7 @@ Signed-off-by: Erik Kurzinger <ekurzinger@nvidia.com>
  hw/xwayland/xwayland-glamor-gbm.c     | 174 +++++++++++++++++++++++++-
  hw/xwayland/xwayland-glamor.c         |  84 +++++++++++++
  hw/xwayland/xwayland-glamor.h         |  26 ++++
- hw/xwayland/xwayland-present.c        |  51 ++++++--
+ hw/xwayland/xwayland-present.c        |  48 +++++--
  hw/xwayland/xwayland-present.h        |   1 -
  hw/xwayland/xwayland-screen.c         |   1 +
  hw/xwayland/xwayland-screen.h         |   7 ++
@@ -1638,7 +1638,7 @@ Signed-off-by: Erik Kurzinger <ekurzinger@nvidia.com>
  hw/xwayland/xwayland-window.c         |  11 ++
  hw/xwayland/xwayland-window.h         |   1 +
  present/present_execute.c             |   7 +-
- 12 files changed, 420 insertions(+), 14 deletions(-)
+ 12 files changed, 417 insertions(+), 14 deletions(-)
 
 diff --git a/hw/xwayland/meson.build b/hw/xwayland/meson.build
 index f2038ab7c3..434b0ceade 100644
@@ -2112,7 +2112,7 @@ index 6f46043642..d1a8982b88 100644
  #ifdef XV
  /* glamor Xv Adaptor */
 diff --git a/hw/xwayland/xwayland-present.c b/hw/xwayland/xwayland-present.c
-index 3a0c1d40f4..fb1df379f7 100644
+index 3a0c1d40f4..66e7f4ffe8 100644
 --- a/hw/xwayland/xwayland-present.c
 +++ b/hw/xwayland/xwayland-present.c
 @@ -27,7 +27,6 @@
@@ -2165,13 +2165,10 @@ index 3a0c1d40f4..fb1df379f7 100644
  
      if (reason)
          *reason = PRESENT_FLIP_REASON_UNKNOWN;
-@@ -734,6 +741,13 @@ xwl_present_check_flip(RRCrtcPtr crtc,
+@@ -734,6 +741,10 @@ xwl_present_check_flip(RRCrtcPtr crtc,
      if (!xwl_glamor_check_flip(present_window, pixmap))
          return FALSE;
  
-+    /* If glamor doesn't support implicit sync and the compositor doesn't
-+     * support explicit sync, we cannot flip
-+     */
 +    if (!xwl_glamor_supports_implicit_sync(xwl_screen) &&
 +        !xwl_screen->explicit_sync)
 +        return FALSE;
@@ -2179,7 +2176,7 @@ index 3a0c1d40f4..fb1df379f7 100644
      /* Can't flip if the window pixmap doesn't match the xwl_window parent
       * window's, e.g. because a client redirected this window or one of its
       * parents.
-@@ -812,6 +826,7 @@ xwl_present_flip(present_vblank_ptr vblank, RegionPtr damage)
+@@ -812,6 +823,7 @@ xwl_present_flip(present_vblank_ptr vblank, RegionPtr damage)
      PixmapPtr pixmap = vblank->pixmap;
      struct xwl_window           *xwl_window = xwl_window_from_window(present_window);
      struct xwl_present_window   *xwl_present_window = xwl_present_window_priv(present_window);
@@ -2187,7 +2184,7 @@ index 3a0c1d40f4..fb1df379f7 100644
      BoxPtr                      damage_box;
      struct wl_buffer            *buffer;
      struct xwl_present_event    *event = xwl_present_event_from_vblank(vblank);
-@@ -831,6 +846,28 @@ xwl_present_flip(present_vblank_ptr vblank, RegionPtr damage)
+@@ -831,6 +843,28 @@ xwl_present_flip(present_vblank_ptr vblank, RegionPtr damage)
  
      event->pixmap = pixmap;
  
@@ -2216,7 +2213,7 @@ index 3a0c1d40f4..fb1df379f7 100644
      xwl_pixmap_set_buffer_release_cb(pixmap, xwl_present_buffer_release, event);
  
      /* We can flip directly to the main surface (full screen window without clips) */
-@@ -1134,10 +1171,8 @@ xwl_present_init(ScreenPtr screen)
+@@ -1134,10 +1168,8 @@ xwl_present_init(ScreenPtr screen)
          return FALSE;
  
      xwl_screen->present_capabilities = XWL_PRESENT_CAPS;
