@@ -19,13 +19,12 @@ override_dh_auto_configure:
 		-Dxkb_output_dir=/var/lib/xkb \
 		-Dxwayland_eglstream=true \
 		-Dxcsecurity=true \
-        -Dglamor=true \
-        -Ddri3=true \
-        -Dxwayland=true \
-        -Dxorg=false \
-        -Dxnest=false \
-        -Dxvfb=false \
-        -Dudev=false
+		-Dglamor=true \
+		-Ddri3=true \
+		-Dxwayland=true \
+		-Dxorg=false \
+		-Dxnest=false \
+		-Dxvfb=false
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp
