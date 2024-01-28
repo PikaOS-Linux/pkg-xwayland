@@ -20,7 +20,12 @@ override_dh_auto_configure:
 		-Dxwayland_eglstream=true \
 		-Dxcsecurity=true \
         -Dglamor=true \
-        -Ddri3=true
+        -Ddri3=true \
+        -Dxwayland=true \
+        -Dxorg=false \
+        -Dxnest=false \
+        -Dxvfb=false \
+        -Dudev=false
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp
