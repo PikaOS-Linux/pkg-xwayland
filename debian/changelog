@@ -1,3 +1,9 @@
+xwayland (2:23.3.4-100pika1) pikauwu; urgency=medium
+
+  * Update to pikauwu
+
+ -- Ward Nakchbandi <hotrod.master@hotmail.com>  Thu, 04 Oct 2022 17:50:00 +0300
+
 xwayland (2:23.2.2-100pika3) pikauwu; urgency=medium
 
   * Update to pikauwu
