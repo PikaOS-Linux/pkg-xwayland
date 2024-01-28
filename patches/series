@@ -1,3 +1,4 @@
 #1120.patch
 967.patch
 0001-xwayland-patch-fix-vsync.patch
+xwayland-pointer-warp-fix.patch
