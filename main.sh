@@ -1,7 +1,7 @@
 # Clone Upstream
 git clone https://gitlab.freedesktop.org/ekurzinger/xserver ./xwayland
 cp -rvf ./debian ./xwayland/
-cp -vf ./meson.build ./xwayland/
+#cp -vf ./meson.build ./xwayland/
 cd ./xwayland
 for i in $(cat ../patches/series) ; do echo "Applying Patch: $i" && patch -Np1 -i ../patches/$i || bash -c "echo "Applying Patch $i Failed!" && exit 2"; done
 
