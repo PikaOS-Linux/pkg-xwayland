@@ -35,9 +35,21 @@ Package: xwayland
 Architecture: linux-any
 Depends:
  xserver-common,
- ${shlibs:Depends},
- ${misc:Depends},
- libnvidia-egl-wayland1,
+ libc6,
+ libdrm2,
+ libepoxy0,
+ libgbm1,
+ libgcrypt20, 
+ libgl1, 
+ libpixman-1-0,
+ libtirpc3,
+ libwayland-client0,
+ libxau6,
+ libxcvt0,
+ libxdmcp6, 
+ libxfont2,
+ libxshmfence1, 
+ libnvidia-egl-wayland1
 Description: X server for running X clients under Wayland
  This package provides an X server running on top of wayland, using wayland
  input devices for input and forwarding either the root window or individual
