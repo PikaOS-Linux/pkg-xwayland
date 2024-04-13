@@ -1,5 +1,5 @@
 # Clone Upstream
-git clone https://gitlab.freedesktop.org/xorg/xserver ./xwayland
+git clone https://gitlab.freedesktop.org/xorg/xserver -b xwayland-24.1 ./xwayland
 cp -rvf ./debian ./xwayland/
 #cp -vf ./meson.build ./xwayland/
 cd ./xwayland
