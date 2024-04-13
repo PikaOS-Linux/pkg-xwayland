@@ -17,7 +17,6 @@ override_dh_auto_configure:
 		-Dbuilder_string="$(DEB_SOURCE) $(DEB_VERSION_UPSTREAM) ($(SUPPORT))" \
 		-Dxkb_dir=/usr/share/X11/xkb \
 		-Dxkb_output_dir=/var/lib/xkb \
-		-Dxwayland_eglstream=true \
 		-Dxcsecurity=true \
         -Dglamor=true \
         -Ddri3=true
